@@ -1,0 +1,18 @@
+import os
+from inference_sdk import InferenceHTTPClient, InferenceConfiguration
+
+client = InferenceHTTPClient(
+    api_url="https://serverless.roboflow.com",
+    api_key=os.environ["ROBOFLOW_API_KEY"]
+).configure(InferenceConfiguration(
+    api_key_transport="header"
+))
+
+result = client.run_workflow(
+    workspace_name="plantdiseasedetection1216",
+    workflow_id="plant-disease-detection-3-v3-logic",
+    images={"image": "test_image.jpg"},
+    use_cache=True
+)
+
+print(result)
